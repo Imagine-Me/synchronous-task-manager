@@ -18,7 +18,7 @@ test('Adding listener will start processing', async () => {
 
 test('Adding multiple task will not call listen method unless complete called', async () => {
     const a = new SynchronousTaskManager();
-    const mockCallback = jest.fn(console.log);
+    const mockCallback = jest.fn((val)=>val);
     a.add({ title: 'first' })
     a.add({ title: 'first' })
     a.add({ title: 'first' })
@@ -28,7 +28,7 @@ test('Adding multiple task will not call listen method unless complete called', 
 
 test('Adding multiple task will not call listen method unless complete called', async () => {
     const a = new SynchronousTaskManager();
-    const mockCallback = jest.fn(console.log);
+    const mockCallback = jest.fn((val)=>val);
     a.add({ title: 'first' })
     a.add({ title: 'first' })
     a.add({ title: 'first' })
@@ -39,7 +39,7 @@ test('Adding multiple task will not call listen method unless complete called', 
 
 test('Listen method will called after all process completed and adding new task', async () => {
     const a = new SynchronousTaskManager();
-    const mockCallback = jest.fn(console.log);
+    const mockCallback = jest.fn((val)=>val);
     a.add({ title: 'first' })
     a.listen(mockCallback)
     expect(mockCallback).toBeCalledTimes(1);
