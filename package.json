@@ -1,8 +1,9 @@
 {
   "name": "synchronous-task-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A package to manage multiple task synchronously",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/Imagine-Me/synchronous-task-manager",
   "scripts": {
     "test": "jest --config jestconfig.json",
