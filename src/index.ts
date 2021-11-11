@@ -44,8 +44,8 @@ export class SynchronousTaskManager {
   }
 
   complete() {
-    this._processQueue[this._processing]._isCompleted = true;
     if (this._processing < this._processQueue.length) {
+      this._processQueue[this._processing]._isCompleted = true;
       this.processTask();
     }
   }
@@ -60,13 +60,13 @@ export class SynchronousTaskManager {
   processTask() {
     if (this._callback) {
       const currentProcess = { ...this._processQueue[this._processing] };
-      this._callback(currentProcess);
       this._processing++;
       if (this._processing < this._processQueue.length) {
         this._processingStatus = true;
       } else {
         this._processingStatus = false;
       }
+      this._callback(currentProcess);
     }
   }
 }
