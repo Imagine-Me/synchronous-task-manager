@@ -29,6 +29,20 @@ export class SynchronousTaskManager {
     this._taskId++;
   }
 
+  addAll(tasks: TaskType[]) {
+    for (const task of tasks) {
+      this._processQueue.push({
+        _id: this._taskId,
+        _isCompleted: false,
+        ...task,
+      });
+      this._taskId++;
+      if (!this._processingStatus && this._taskId === this._processing) {
+        this.processTask();
+      }
+    }
+  }
+
   complete() {
     this._processQueue[this._processing]._isCompleted = true;
     if (this._processing < this._processQueue.length) {
