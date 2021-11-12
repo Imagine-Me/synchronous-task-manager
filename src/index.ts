@@ -15,7 +15,25 @@ export class SynchronousTaskManager {
   _processQueue: ProcessType[] = [];
   _processing: number = 0;
   _callback: callBack = null;
+  _stateCallback: ((prev: any, next: any) => any) | null = null;
   _processingStatus: boolean = false;
+  _state: any = null;
+
+  get state() {
+    return this._state;
+  }
+
+  setState(callback: (val: any) => any) {
+    const prev: any = this._state;
+    this._state = callback(this._state);
+    if (this._stateCallback) {
+      this._stateCallback(prev, this._state);
+    }
+  }
+
+  onStateChange(callback: (prev: any, next: any) => any) {
+    this._stateCallback = callback;
+  }
 
   add(task: TaskType) {
     this._processQueue.push({
@@ -36,10 +54,10 @@ export class SynchronousTaskManager {
         _isCompleted: false,
         ...task,
       });
-      this._taskId++;
       if (!this._processingStatus && this._taskId === this._processing) {
         this.processTask();
       }
+      this._taskId++;
     }
   }
 
